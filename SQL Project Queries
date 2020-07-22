@@ -1,0 +1,55 @@
+/* Query 1 - query used for first insight */\
+\
+SELECT T.Name, count(t.Name)  PurchaseCount\
+FROM Track T\
+JOIN InvoiceLine lL ON lL.TrackId =T.Trackid\
+GROUP BY T.Name\
+ORDER BY PurchaseCount DESC\
+LIMIT 5;\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 /* Query 2 - query used for second insight */\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+SELECT E.firstName as Sales_Agent , sum(I.total) as Total_Amount\
+FROM Invoice I\
+JOIN customer C \
+ON C.customerid =  I.customerid\
+JOIN employee E\
+ON E.employeeid = C.supportrepid\
+WHERE I.invoiceDate like '2013%'\
+GROUP BY E.Employeeid\
+ORDER BY sum(i.total) DESC\
+LIMIT 3;\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 /* Query 3 - query used for third insight */\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 SELECT T.name, count(T.name) PurchaseCount\
+FROM track T\
+JOIN invoiceline lL \
+ON lL.trackid = T.trackid\
+JOIN invoice I \
+ON lL.invoiceid = I.invoiceid\
+WHERE STRFTIME('%Y', I.invoicedate) = "2009"\
+GROUP BY T.name\
+ORDER BY PurchaseCount DESC\
+LIMIT 5;\
+\
+/* Query 4 - query used for fourth insight */\
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 \cb4 \expnd0\expndtw0\kerning0
+SELECT AR.Name Artist_Name, sum(IL.UnitPrice) Total_Recevied\
+FROM Track T\
+JOIN Album A\
+ON T.AlbumId=A.AlbumId\
+JOIN Artist AR\
+ON A.ArtistId=AR.ArtistId\
+JOIN InvoiceLine IL\
+ON IL.TrackId=T.TrackId\
+GROUP BY AR.Name\
+ORDER BY Total_Recevied DESC\
+limit 4;\
